@@ -43,6 +43,7 @@ class HangmanGame
       puts "You are victorious human. For now..."
       puts "The word was in fact #{@game_word}"
     else
+      puts self
       puts "Mwahaha, the superior computer remains superior"
       puts "The word was obviously #{@game_word}"
     end
@@ -55,6 +56,20 @@ class HangmanGame
 
   def to_s
     output = ""
+
+    t = @turns
+
+    ascii = <<-eos
+    _____
+    |    #{t<7 ? '|':' '}
+    |    #{t<6 ? 'O':' '}
+    |   #{t<2 ? '/':' '}#{t<5 ? '|':' '}#{t<1 ? '\\':' '}
+    |   #{t<4 ? '/':' '} #{t<3 ? '\\':' '}
+    |
+    ===
+    eos
+
+    output << ascii
 
     @game_letters.each do |l|
       output << (@guessed_letters.include?(l) ? l : '__') + ' '
