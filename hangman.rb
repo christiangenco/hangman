@@ -1,16 +1,18 @@
 class HangmanGame
 
-  attr_reader :guessed_letters, :turns
+  attr_reader :guessed_letters, :turns, :words
 
-  def initialize
+  def initialize(params = {words: ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"]})
+
+    @words = params[:words]
+
     @game_over = false
     @guessed_letters = []
     @turns = 7
   end
 
   def random_word
-    # downside: reads the entire text file into memory each time this method is called
-    File.readlines(File.join('dictionaries', 'gsl.txt')).sample.strip
+    @words.sample.strip
   end
 
   def won?
@@ -83,5 +85,15 @@ class HangmanGame
   end
 
 end
+
+# gem install pry
+# one of the best ruby tools ever: http://pryrepl.org/
+# type "binding.pry" anywhere in your program when debugging to interact with your code at that spot on the command line
+# require 'pry'
+
+# can now define a custom list of words:
+# HangmanGame.new({words: ['test', 'one', 'two', 'three']}).play
+
+# binding.pry
 
 HangmanGame.new.play
