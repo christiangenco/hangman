@@ -9,7 +9,9 @@ class HangmanGame
   end
 
   def play
-    set_word
+    @game_word = random_word
+    @game_letters = @game_word.chars.to_a
+    
     print_instructions
 
     while !@game_over
@@ -75,7 +77,7 @@ class HangmanGame
     elsif @game_letters.include? @letter
       puts "Yes, this word does include #{@letter}, but you shall not defeat me"
     else
-      @turns = @turns - 1
+      @turns -= 1
       puts "Fool, this word does not contain your worthless letter #{@letter}. You have #{@turns} guesses left."
     end
   end
@@ -84,9 +86,8 @@ class HangmanGame
     @letter = gets.chomp.downcase
   end
 
-  def set_word
-    @game_word = ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"].sample
-    @game_letters = @game_word.chars.to_a
+  def random_word
+    ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"].sample
   end
 
   def print_instructions
