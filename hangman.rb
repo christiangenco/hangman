@@ -8,6 +8,15 @@ class HangmanGame
     @turns = 7
   end
 
+  def random_word
+    # downside: reads the entire text file into memory each time this method is called
+    File.readlines(File.join('dictionaries', 'gsl.txt')).sample.strip
+  end
+
+  def won?
+    (@game_letters - @guessed_letters).length == 0
+  end
+
   def play
     # pick a new word each time you play
     @game_word = random_word
@@ -50,10 +59,6 @@ class HangmanGame
 
   end
 
-  def won?
-    (@game_letters - @guessed_letters).length == 0
-  end
-
   def to_s
     output = ""
 
@@ -75,11 +80,6 @@ class HangmanGame
       output << (@guessed_letters.include?(l) ? l : '__') + ' '
     end
     output
-  end
-
-  def random_word
-    # downside: reads the entire text file into memory each time this method is called
-    File.readlines(File.join('dictionaries', 'gsl.txt')).sample.strip
   end
 
 end
