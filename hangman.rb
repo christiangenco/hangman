@@ -11,7 +11,7 @@ class HangmanGame
   def play
     @game_word = random_word
     @game_letters = @game_word.chars.to_a
-    
+
     print_instructions
 
     while !@game_over
@@ -87,7 +87,8 @@ class HangmanGame
   end
 
   def random_word
-    ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"].sample
+    # downside: reads the entire text file into memory each time this method is called
+    File.readlines(File.join('dictionaries', 'gsl.txt')).sample.strip
   end
 
   def print_instructions
