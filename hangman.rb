@@ -14,7 +14,7 @@ class HangmanGame
     set_word
     print_instructions
 
-    while in_play
+    while !@game_over
       get_letter
       if have_lives?
         puts "Guess another letter"
@@ -84,10 +84,6 @@ class HangmanGame
 
    def get_letter
     @letter = gets.chomp.downcase
-  end
-
-  def in_play
-    @game_over == false
   end
 
   def set_word
