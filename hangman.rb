@@ -84,9 +84,9 @@ class HangmanGame
 
     output << ascii
 
-    @game_letters.each do |l|
-      output << (@guessed_letters.include?(l) ? l : '__') + ' '
-    end
+    output << @game_letters.map do |l|
+      @guessed_letters.include?(l) ? l : '__'
+    end.join(' ')
     output
   end
 
