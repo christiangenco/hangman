@@ -4,7 +4,11 @@ class HangmanGame
 
   def initialize(params = {words: ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"]})
 
-    @words = params[:words]
+    if params[:file]
+      @words = File.readlines(params[:file])
+    else
+      @words = params[:words]
+    end
 
     @game_over = false
     @guessed_letters = []
@@ -93,7 +97,12 @@ end
 
 # can now define a custom list of words:
 # HangmanGame.new({words: ['test', 'one', 'two', 'three']}).play
+# but the braces are optional:
+# HangmanGame.new(words: ['test', 'one', 'two', 'three']).play
+
+# or a filename:
+# HangmanGame.new(file: "dictionaries/gsl.txt")
 
 # binding.pry
 
-HangmanGame.new.play
+HangmanGame.new(file: File.join('dictionaries', 'gsl.txt')).play
