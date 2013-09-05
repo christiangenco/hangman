@@ -3,8 +3,6 @@ class HangmanGame
   attr_reader :game_word, :game_letters, :game_over, :guessed_letters, :turns, :letter, :counter
 
   def initialize
-    number = rand(24)
-    @number = number
     @game_over = false
     @guessed_letters = []
     @turns = 7
@@ -87,8 +85,7 @@ class HangmanGame
   end
 
   def set_word
-    words = ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"]
-    @game_word = words[@number]
+    @game_word = ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"].sample
     @game_letters = @game_word.chars.to_a
   end
 
