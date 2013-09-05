@@ -82,7 +82,7 @@ class HangmanGame
     end
   end
 
-   def get_letter
+  def get_letter
     @letter = gets.chomp.downcase
   end
 
@@ -101,5 +101,3 @@ class HangmanGame
 end
 
 HangmanGame.new.play
-
-
