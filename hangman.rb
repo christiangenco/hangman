@@ -55,12 +55,9 @@ class HangmanGame
 
   def to_s
     output = ""
+
     @game_letters.each do |l|
-      if @guessed_letters.include? l
-        output << "#{l} "
-      else
-        output << "__ "
-      end
+      output << (@guessed_letters.include?(l) ? l : '__') + ' '
     end
     output
   end
