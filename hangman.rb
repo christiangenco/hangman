@@ -4,7 +4,9 @@ class HangmanGame
 
   def initialize(params = {words: ["control", "power", "uranium", "weapons", "human", "slaves", "dictatorship", "oppressor", "tycoon", "tyrant", "sovereign", "exterminate", "terminate", "vanquish", "raze", "demolish", "institutionalize", "annihilate", "decimate", "eradicate", "obliterate", "slaughter", "belize", "squash"]})
 
-    if params[:file]
+    if params.is_a?(Array)
+      @words = params
+    elsif params[:file]
       @words = File.readlines(params[:file])
     else
       @words = params[:words]
@@ -102,6 +104,11 @@ end
 
 # or a filename:
 # HangmanGame.new(file: "dictionaries/gsl.txt")
+
+# or an array
+# HangmanGame.new(["one", "two", "three"])
+# or:
+# HangmanGame.new(%w(one two three))
 
 # binding.pry
 
