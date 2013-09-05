@@ -1,6 +1,6 @@
 class HangmanGame
 
-  attr_reader :game_word, :game_letters, :guessed_letters, :turns
+  attr_reader :guessed_letters, :turns
 
   def initialize
     @game_over = false
