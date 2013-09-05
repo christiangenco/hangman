@@ -1,6 +1,6 @@
 class HangmanGame
 
-  attr_reader :game_word, :game_letters, :game_over, :guessed_letters, :turns, :letter, :counter
+  attr_reader :game_word, :game_letters, :guessed_letters, :turns
 
   def initialize
     @game_over = false
@@ -9,92 +9,65 @@ class HangmanGame
   end
 
   def play
+    # pick a new word each time you play
     @game_word = random_word
     @game_letters = @game_word.chars.to_a
 
-    print_instructions
+    # instructions
+    puts "Welcome to Hangman, where I, the computer, am champion of words"
 
-    while !@game_over
-      get_letter
-      if have_lives?
-        puts "Guess another letter"
-        get_response
+    # loop until the game is over
+    while @turns > 0 && !won?
+      puts self
+      puts "You have #{@turns} guesses left."
+      print "Guess a letter: "
+      letter = gets.chomp.downcase
 
-        @guessed_letters << @letter
-
-        print_word
-        check_won
+      if letter.size != 1
+        puts "This is not a valid input foolish human"
+      elsif @guessed_letters.include? letter
+        puts "You have already guessed the letter #{letter} silly mortal"
+      elsif @game_letters.include? letter
+        @guessed_letters << letter
+        puts "Yes, this word does include #{letter}, but you shall not defeat me"
       else
-        lost
+        @turns -= 1
+        @guessed_letters << letter
+
+        puts "Fool, this word does not contain your worthless letter #{letter}."
       end
     end
-  end
 
-  def game_end
-    @game_over = true
-  end
-
-  def lost
-    puts "Mwahaha, the superior computer remains superior"
-    puts "The word was obviously #{@game_word}"
-    game_end
-  end
-
-  def check_won
-    @counter = @game_word.size
-    @game_letters.each do |l|
-      if @guessed_letters.include? l
-        @counter = @counter - 1
-        if @counter == 0
-          puts "You are victorious human. For now..."
-          puts "The word was in fact #{@game_word}"
-          game_end
-        end
-      end
-    end
-  end
-
-  def print_word
-    @game_letters.each do |l|
-      if @guessed_letters.include? l
-        print "#{l} "
-      else
-        print "__ "
-      end
-    end
-    puts ""
-  end
-
-  def have_lives?
-    @turns > 1
-  end
-
-  def get_response
-    if @letter.size != 1
-      puts "This is not a valid input foolish human"
-    elsif @guessed_letters.include? @letter
-      puts "You have already guessed the letter #{@letter} silly mortal"
-    elsif @game_letters.include? @letter
-      puts "Yes, this word does include #{@letter}, but you shall not defeat me"
+    # the game is over
+    if won?
+      puts "You are victorious human. For now..."
+      puts "The word was in fact #{@game_word}"
     else
-      @turns -= 1
-      puts "Fool, this word does not contain your worthless letter #{@letter}. You have #{@turns} guesses left."
+      puts "Mwahaha, the superior computer remains superior"
+      puts "The word was obviously #{@game_word}"
     end
+
   end
 
-  def get_letter
-    @letter = gets.chomp.downcase
+  def won?
+    (@game_letters - @guessed_letters).length == 0
+  end
+
+  def to_s
+    output = ""
+    @game_letters.each do |l|
+      if @guessed_letters.include? l
+        output << "#{l} "
+      else
+        output << "__ "
+      end
+    end
+    output
   end
 
   def random_word
     # downside: reads the entire text file into memory each time this method is called
     File.readlines(File.join('dictionaries', 'gsl.txt')).sample.strip
-  end
-
-  def print_instructions
-    puts "Welcome to Hangman, where I, the computer, am champion of words"
-    puts "Guess a letter, if you dare"
-    puts "__ " * @game_word.size
   end
 
 end
