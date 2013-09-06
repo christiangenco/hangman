@@ -18,7 +18,8 @@ I added a small little solver that I run through IRB, but could be built into a 
 
 Sample of how I used it
 
-```$ ruby solver.rb
+```console
+$ ruby solver.rb
 > solver = HangmanSolver.new(file: File.join('dictionaries', 'gsl.txt'), length: 8)
 > solver.help  # get the occurances of letters
 => [[:j, 1], ... , [:e, 131]]
