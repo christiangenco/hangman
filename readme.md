@@ -9,3 +9,11 @@ Test your skills by running
 cd hangman
 ruby hangman.rb
 ```
+
+*****
+
+By [catepillar](https://github.com/catepillar)
+
+I added a small little solver that I run through IRB, but could be built into a console app if so desired.
+
+Now you no longer have to worry about a condescending computer!
